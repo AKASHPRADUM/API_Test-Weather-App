@@ -5,10 +5,9 @@ app.use(express.urlencoded())
 
 app.get('/', function(req,res){
     res.sendFile(__dirname+"/index.html");
-    
 });
+
 app.post("/",(req,res)=>{
-    console.log(req.body);
     const city = req.body.cityName;
     const yourID = "48c56779bfd87a0744a620d4a35a1c93";
     const unit = req.body.unit;
@@ -18,7 +17,6 @@ app.post("/",(req,res)=>{
     https.get(url, function(response){
         console.log(response.statusCode);
         response.on("data", function(data){
-            // console.log(data);
             const weatheData = JSON.parse(data);
             const temp = weatheData.main.temp;
             const weatherDiscreption = weatheData.weather[0].description;
@@ -27,7 +25,6 @@ app.post("/",(req,res)=>{
             res.write("<p>temprature is "+ temp+"<p>");
             res.write("<p>weather is "+ weatherDiscreption+"<p>");
             res.write("<img src="+ weatherIcon +">");
-            // console.log(temp);
             res.send();
         });
     });
